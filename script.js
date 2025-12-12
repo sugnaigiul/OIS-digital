@@ -109,18 +109,16 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         
         audioPlayer.addEventListener('ended', playNextSong);
-
-        // Démarrage sur le bouton
         playButton.addEventListener('mousedown', startPlayback);
+        playButton.addEventListener('mouseup', stopPlayback);
+        playButton.addEventListener('mouseleave', stopPlayback);
+
         playButton.addEventListener('touchstart', e => {
             e.preventDefault();
             startPlayback();
         });
-
-        // Arrêt n'importe où sur la page
-        window.addEventListener('mouseup', stopPlayback);
-        window.addEventListener('touchend', stopPlayback);
-        window.addEventListener('touchcancel', stopPlayback);
+        playButton.addEventListener('touchend', stopPlayback);
+        playButton.addEventListener('touchcancel', stopPlayback);
 
         speedSlider.addEventListener('input', handleSpeedChange);
     }
