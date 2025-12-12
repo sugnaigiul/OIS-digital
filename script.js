@@ -1,11 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const playButton = document.getElementById('playButton');
     const audioPlayer = document.getElementById('audioPlayer');
+    const controlsWrapper = document.getElementById('controls-wrapper');
     const timerDisplay = document.getElementById('timerDisplay');
+    const speedSlider = document.getElementById('speedSlider');
 
     const offImage = 'media/Switch-OFF.png';
     const onImage = 'media/Switch-ON.png';
-    const midwayImage = 'media/Switch-midway.png'; // Nouvelle image
+    const midwayImage = 'media/Switch-midway.png';
 
     const playlist = [
         'album/01.mp3', 'album/02.mp3', 'album/03.mp3', 'album/04.mp3', 
@@ -19,14 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let sessionElapsedTime = 0;
     let animationFrameId;
 
-    // --- Helper Functions ---
     function formatTime(seconds) {
         const minutes = Math.floor(seconds / 60);
         const secs = Math.floor(seconds % 60);
         return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
 
-    // --- Core Logic ---
     function updateTimer() {
         if (isPlaying) {
             const currentTotalElapsed = sessionElapsedTime + audioPlayer.currentTime;
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function playNextSong() {
         if (!isPlaying) return;
-        sessionElapsedTime += audioPlayer.duration; // Add finished song's duration
+        sessionElapsedTime += audioPlayer.duration;
         currentSongIndex = (currentSongIndex + 1) % playlist.length;
         audioPlayer.src = playlist[currentSongIndex];
         audioPlayer.play().catch(error => console.error("Erreur de lecture audio:", error));
@@ -47,12 +47,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isPlaying) return;
         isPlaying = true;
         
-        playButton.src = midwayImage; // Passage à l'image intermédiaire
+        playButton.src = midwayImage;
         setTimeout(() => {
             if(isPlaying) playButton.src = onImage;
-        }, 25); // Court délai
+        }, 75);
 
-        timerDisplay.classList.add('visible');
+        controlsWrapper.classList.add('visible');
         
         audioPlayer.src = playlist[currentSongIndex];
         audioPlayer.play().catch(error => console.error("Erreur de lecture audio:", error));
@@ -64,17 +64,19 @@ document.addEventListener('DOMContentLoaded', () => {
     function stopPlayback() {
         if (!isPlaying) return;
         
-        playButton.src = midwayImage; // Passage à l'image intermédiaire
+        playButton.src = midwayImage;
         setTimeout(() => {
             playButton.src = offImage;
-        }, 25); // Court délai
+        }, 75);
 
         isPlaying = false;
-        timerDisplay.classList.remove('visible');
+        controlsWrapper.classList.remove('visible');
 
         audioPlayer.pause();
         audioPlayer.currentTime = 0;
         sessionElapsedTime = 0;
+        audioPlayer.playbackRate = 1; // Réinitialise la vitesse
+        speedSlider.value = 1; // Réinitialise la position du slider
         
         cancelAnimationFrame(animationFrameId);
         setTimeout(() => {
@@ -82,7 +84,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 400);
     }
 
-    // --- Initialization ---
+    function handleSpeedChange() {
+        audioPlayer.playbackRate = speedSlider.value;
+    }
+
     function initialize() {
         const promises = playlist.map(src => {
             return new Promise((resolve, reject) => {
@@ -114,6 +119,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         playButton.addEventListener('touchend', stopPlayback);
         playButton.addEventListener('touchcancel', stopPlayback);
+
+        speedSlider.addEventListener('input', handleSpeedChange);
     }
 
     initialize();

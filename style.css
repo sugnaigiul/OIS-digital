@@ -18,28 +18,65 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px; /* Espace entre le bouton et le minuteur */
+    gap: 20px; /* Espace entre le bouton et les contrôles */
 }
 
 #playButton {
     cursor: pointer;
-    width: 50vmin; /* Utilise la plus petite dimension de la fenêtre pour le dimensionnement */
+    width: 50vmin;
     height: 50vmin;
-    max-width: 250px; /* Taille maximale sur les grands écrans */
+    max-width: 250px;
     max-height: 250px;
-    user-select: none; /* Empêche la sélection de l'image */
-    -webkit-user-drag: none; /* Empêche le glissement de l'image sur Safari */
-    -webkit-tap-highlight-color: transparent; /* Supprime le flash de surbrillance sur mobile */
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+#controls-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+#controls-wrapper.visible {
+    opacity: 1;
 }
 
 #timerDisplay {
     color: white;
     font-family: 'Courier New', Courier, monospace;
     font-size: 1.2rem;
-    opacity: 0;
-    transition: opacity 0.4s ease-in-out;
 }
 
-#timerDisplay.visible {
-    opacity: 1;
+#speedSlider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    max-width: 200px;
+    height: 10px;
+    background: #444; /* Fond du slider (rectangle) */
+    outline: none;
+    cursor: pointer;
+}
+
+/* Style du curseur (carré) pour Chrome/Safari */
+#speedSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #fff; /* Couleur du curseur (carré) */
+    cursor: pointer;
+}
+
+/* Style du curseur (carré) pour Firefox */
+#speedSlider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    cursor: pointer;
+    border: none;
 }

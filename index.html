@@ -10,7 +10,10 @@
     <div id="button-container">
         <div id="button-wrapper">
             <img src="media/Switch-OFF.png" id="playButton" alt="Play Button" draggable="false">
-            <div id="timerDisplay"></div>
+            <div id="controls-wrapper">
+                <div id="timerDisplay"></div>
+                <input type="range" id="speedSlider" min="0.5" max="1.5" value="1" step="0.05">
+            </div>
         </div>
     </div>
     <audio id="audioPlayer"></audio>
