@@ -1,0 +1,26 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    overflow: hidden; /* Empêche le défilement */
+}
+
+#button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+#playButton {
+    cursor: pointer;
+    width: 50vmin; /* Utilise la plus petite dimension de la fenêtre pour le dimensionnement */
+    height: 50vmin;
+    max-width: 250px; /* Taille maximale sur les grands écrans */
+    max-height: 250px;
+    user-select: none; /* Empêche la sélection de l'image */
+    -webkit-user-drag: none; /* Empêche le glissement de l'image sur Safari */
+    -webkit-tap-highlight-color: transparent; /* Supprime le flash de surbrillance sur mobile */
+}
