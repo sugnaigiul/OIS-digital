@@ -51,32 +51,56 @@ html, body {
     font-size: 1.2rem;
 }
 
+#custom-slider-container {
+    position: relative;
+    width: 100%;
+    max-width: 250px; /* Aligned with button width */
+}
+
+#slider-base-img {
+    width: 100%;
+    display: block; /* Removes extra space below image */
+}
+
 #speedSlider {
     -webkit-appearance: none;
     appearance: none;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    max-width: 200px;
-    height: 10px;
-    background: #444; /* Fond du slider (rectangle) */
+    height: 100%;
+    background: transparent;
     outline: none;
     cursor: pointer;
 }
 
-/* Style du curseur (carré) pour Chrome/Safari */
-#speedSlider::-webkit-slider-thumb {
+#speedSlider::-webkit-slider-runnable-track {
     -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    background: #fff; /* Couleur du curseur (carré) */
-    cursor: pointer;
+    background: transparent;
+    border: none;
 }
 
-/* Style du curseur (carré) pour Firefox */
+#speedSlider::-moz-range-track {
+    -moz-appearance: none;
+    background: transparent;
+    border: none;
+}
+
+#speedSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 30px; /* Adjust size as needed */
+    height: 30px; /* Adjust size as needed */
+    background: url('media/Slider-tip.png') no-repeat center center;
+    background-size: contain;
+    border: none;
+}
+
 #speedSlider::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    background: #fff;
-    cursor: pointer;
+    -moz-appearance: none;
+    width: 30px;
+    height: 30px;
+    background: url('media/Slider-tip.png') no-repeat center center;
+    background-size: contain;
     border: none;
 }
